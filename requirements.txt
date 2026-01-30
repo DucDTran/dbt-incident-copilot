@@ -1,0 +1,55 @@
+# dbt Co-Work Dependencies
+
+# ===========================
+# Core Framework
+# ===========================
+google-adk>=0.3.0
+google-genai>=1.0.0
+
+# ===========================
+# Streamlit UI
+# ===========================
+streamlit>=1.40.0
+streamlit-extras>=0.5.0
+
+# ===========================
+# Database
+# ===========================
+sqlalchemy>=2.0.0
+google-cloud-bigquery>=3.25.0
+pandas>=2.2.0
+
+# ===========================
+# dbt Integration
+# ===========================
+dbt-core>=1.8.0
+dbt-bigquery>=1.8.0
+
+# ===========================
+# Utilities
+# ===========================
+python-dotenv>=1.0.0
+pyyaml>=6.0.0
+rich>=13.9.0
+numpy>=1.26.0
+
+# File processing
+watchdog>=4.0.0
+
+# ===========================
+# Configuration & Validation
+# ===========================
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# ===========================
+# Observability (Langfuse)
+# ===========================
+langfuse>=2.0.0
+
+# ===========================
+# Type Hints & Development
+# ===========================
+typing-extensions>=4.0.0
+
+
