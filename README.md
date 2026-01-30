@@ -8,7 +8,7 @@ dbt Co-Work transforms pipeline failure resolution from a manual "hunt-and-peck"
 ![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge)
 ![Gemini 2.0](https://img.shields.io/badge/Gemini-2.0_Flash-green?style=for-the-badge)
 
-## �️ The Problem: The "Data Detective" Tax
+## The Problem: The "Data Detective" Tax
 
 Why do Analytics Engineers spend **30-50%** of their time debugging instead of building?
 
@@ -18,41 +18,6 @@ Why do Analytics Engineers spend **30-50%** of their time debugging instead of b
 4.  **Operational Toil**: Senior engineers get bogged down in repetitive support tickets, blocking high-value strategic work.
 
 **dbt Co-Work eliminates this tax.** It does the heavy lifting of investigation and diagnosis instantly, so engineers can simply review the findings and approve the solution.
-
-## �🎯 How This Differs from Agentic Coding Tools/IDEs
-
-dbt Co-Work is **not** a general-purpose coding assistant like GitHub Copilot, Cursor, or other AI-powered IDEs. Here are the top 3 fundamental differences:
-
-### 1. 🔍 **Autonomous Investigation vs. Code Completion**
-**Agentic IDEs** provide code suggestions as you type. **dbt Co-Work** autonomously investigates data pipeline failures by:
-- Tracing model lineage across dependencies
-- Querying actual data warehouse tables to verify hypotheses
-- Analyzing SQL transformation logic and schema definitions
-- Consulting business rules from a knowledge base
-- Synthesizing findings into actionable diagnoses with root cause analysis
-
-**Key Difference**: Instead of helping you write code, it helps you understand **why** your data pipeline failed and **what** to fix.
-
-### 2. 🛠️ **Multi-Tool Orchestration for Data Context**
-**Agentic IDEs** typically offer single-tool assistance (code completion, chat, or file editing). **dbt Co-Work** orchestrates 8+ specialized tools in a coordinated investigation:
-- Reads dbt manifest for lineage analysis
-- Executes SQL queries against BigQuery to inspect actual data
-- Searches knowledge base semantically for business rules
-- Analyzes schema definitions and test configurations
-- Generates contextual fix recommendations with pros, cons, and when-to-use guidance
-
-**Key Difference**: It understands the **full data context** (lineage, actual data, business rules) not just code syntax.
-
-### 3. 📊 **Decision Support with Business Context**
-**Agentic IDEs** generate code snippets based on patterns. **dbt Co-Work** provides decision support with:
-- Multiple fix options with pros, cons, and when-to-use guidance
-- Impact analysis on downstream models
-- Business rule compliance checks
-- Ready-to-apply fixes with dry-run validation
-
-**Key Difference**: It makes **context-aware decisions** about data quality issues, considering business impact and policies, not just code correctness.
-
-**In Summary**: While agentic coding tools help you **write code faster**, dbt Co-Work helps you **resolve data pipeline incidents faster** by autonomously investigating failures and providing contextual, business-aware resolution options.
 
 ## ✨ Key Technology Features
 
@@ -82,23 +47,6 @@ dbt Co-Work is **not** a general-purpose coding assistant like GitHub Copilot, C
 - **Investigation Steps**: View all tool calls with metadata, JSON responses, and execution time tracking
 - **Comprehensive Context Panel**: Displays error messages, SQL code, schema definitions, and business rules
 - **Complete Audit Trail**: Full investigation history with tool call details, responses, and timing information
-
-## 💰 Business Impact & ROI
-
-dbt Co-Work drastically reduces the operational overhead of maintaining data quality at scale.
-
-| Metric | Before (Manual) | With dbt Co-Work | Improvement |
-|--------|-----------------|------------------|-------------|
-| **Mean Time to Resolution (MTTR)** | 2-4 Hours | < 10 Minutes | **90%+ Faster** |
-| **Engineering Context Switching** | High - Interrupts flow | Low - One-click fix | **Focus Preserved** |
-| **Fix Quality** | Inconsistent | Standardized & Business-Aware | **Higher Confidence** |
-| **Documentation** | Often skipped | Automatic & Audit-Ready | **100% Coverage** |
-| **Onboarding Time** | Months to learn data quirks | Immediate guidance via Agent | **Accelerated** |
-
-**Real-World Value:**
-*   **For Engineers:** Eliminates the drudgery of debugging, letting them focus on building new models and features.
-*   **For Analytics Managers:** Ensures data reliability without hiring an army of support engineers.
-*   **For Business Stakeholders:** Reduces "time-to-trust" when data anomalies occur, preventing decision paralysis.
 
 ## 🎯 Potential Use Cases
 
@@ -261,14 +209,6 @@ The agents have access to a suite of 8+ specialized tools:
 
 ## 📦 Quick Start
 
-### Option 1: One-Line Setup
-
-```bash
-cd /Users/duc.tran/dbt-copilot && ./run.sh
-```
-
-### Option 2: Manual Setup
-
 1. **Create Virtual Environment**
    ```bash
    cd /Users/duc.tran/dbt-copilot
@@ -361,42 +301,6 @@ knowledge_base/
 └── incident_playbook.md        # Response procedures
 ```
 
-### Sample Business Rule Match
-When investigating an `accepted_values` failure on `sentiment`:
-> **Business Context Found**: Data Quality Policies - Sentiment Values Policy
-> 
-> *"Due to the introduction of our new NLP sentiment analysis pipeline (v2.0), 
-> the following additional values are now temporarily accepted: 'mixed', 'unknown'"*
-
-## 🧪 Demo Mode
-
-The application includes comprehensive mock data for demonstration:
-
-### Simulated Test Failures:
-1. **Sentiment Values** (`fact_reviews.sentiment`)
-   - Error: Unexpected values `['mixed', 'unknown']`
-   - Cause: NLP system upgrade
-
-2. **NULL Host IDs** (`dim_listing.host_id`)
-   - Error: 12 NULL values found
-   - Cause: Host migration in progress
-
-3. **New Room Type** (`dim_listing.room_type`)
-   - Error: Unexpected value `['Studio']`
-   - Cause: New product category
-
-4. **Price Out of Range** (`dim_listing.price`)
-   - Error: Values `[0.00, 15000.00, -50.00]`
-   - Cause: Promotional rates + data errors
-
-5. **Orphan Reviews** (`fact_reviews.listing_id`)
-   - Error: 23 orphan records
-   - Cause: Soft-deleted listings
-
-### Enable/Disable Mock Mode:
-- Set `USE_MOCK_DATA=true` in `config.env` (default)
-- Toggle via sidebar in the UI
-
 ## 🔄 Injecting Test Failures
 
 To test with real dbt failures:
@@ -413,59 +317,6 @@ dbt test
 python scripts/inject_failing_data.py --restore
 ```
 
-## 🗂️ Project Structure
-
-```
-dbt-copilot/
-├── app/
-│   ├── __init__.py
-│   ├── main.py                     # Streamlit entry point
-│   ├── agent/
-│   │   ├── copilot_agent.py        # Legacy single-agent (fallback)
-│   │   ├── multi_agent_copilot.py  # Multi-agent orchestrator (recommended)
-│   │   └── tools/                  # Agent tool implementations
-│   │       ├── agentic_fix_tool.py # Fix generation tools
-│   │       ├── dbt_tool.py         # dbt operations
-│   │       ├── elementary_tool.py  # Test results queries
-│   │       ├── knowledge_base_tool.py # KB semantic search
-│   │       ├── manifest_tool.py    # Lineage analysis
-│   │       ├── repo_tool.py        # File operations
-│   │       └── sql_tool.py         # SQL execution
-│   ├── config/
-│   │   └── settings.py             # Configuration management
-│   ├── db/
-│   │   └── mock_elementary.py      # Mock test results
-│   ├── prompts/
-│   │   ├── agent_prompts.py        # Legacy prompts
-│   │   ├── fix_prompts.py          # Fix generation prompts
-│   │   └── multi_agent_prompts.py  # Multi-agent prompts
-│   └── ui/
-│       ├── components.py           # Shared UI components
-│       ├── mission_control.py      # Home view (dashboard)
-│       └── resolution_studio.py    # Detail view (labs)
-├── knowledge_base/                 # Business rules docs
-├── scripts/
-│   └── inject_failing_data.py      # Demo data injection
-├── config.example.env              # Environment template
-├── requirements.txt                # Python dependencies
-├── run.sh                          # Quick start script
-└── README.md
-```
-
-## ⚙️ Configuration
-
-### Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `GOOGLE_API_KEY` | Gemini API key | Required |
-| `GEMINI_MODEL` | Model to use | `gemini-2.5-pro` |
-| `DBT_PROJECT_PATH` | Path to dbt project | `/Users/duc.tran/airbnb-dbt-project/dbt` |
-| `KNOWLEDGE_BASE_PATH` | Path to knowledge base | `./knowledge_base` |
-| `USE_MOCK_DATA` | Enable mock mode | `true` |
-| `BIGQUERY_PROJECT_ID` | GCP project ID | Optional |
-| `BIGQUERY_DATASET` | Elementary dataset | `elementary` |
-
 ## 🔮 Future Enhancements
 
 - [ ] Slack/Teams notifications
@@ -475,21 +326,6 @@ dbt-copilot/
 - [ ] Agent memory and learning
 - [ ] Support for more data warehouses (Snowflake, Databricks)
 - [ ] Automated regression testing after fixes
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## 📄 License
-
-MIT License - see LICENSE file for details.
-
----
-
-Built with ❤️ for Analytics Engineers
 
 **Questions?** Open an issue or reach out to me @ dinhductran189@gmail.com.
 

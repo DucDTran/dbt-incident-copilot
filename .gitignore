@@ -210,3 +210,7 @@ __marimo__/
 config.env
 credentials/
 .DS_Store
+
+PROJECT_FAQ.md
+run.sh
+docs/
